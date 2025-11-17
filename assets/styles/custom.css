@@ -102,7 +102,9 @@ li {
 }
 
 /* ===== Buttons ===== */
-.stButton > button {
+.stButton > button,
+button[kind="primary"],
+button[kind="secondary"] {
     background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
     color: #ffffff !important;
     border: none !important;
@@ -118,11 +120,19 @@ li {
 
 .stButton > button p,
 .stButton > button div,
-.stButton > button span {
+.stButton > button span,
+button[kind="primary"] p,
+button[kind="primary"] div,
+button[kind="primary"] span,
+button[kind="secondary"] p,
+button[kind="secondary"] div,
+button[kind="secondary"] span {
     color: #ffffff !important;
 }
 
-.stButton > button:hover {
+.stButton > button:hover,
+button[kind="primary"]:hover,
+button[kind="secondary"]:hover {
     background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
     transform: translateY(-1px) !important;
