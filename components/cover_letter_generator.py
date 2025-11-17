@@ -150,9 +150,22 @@ def handle_cover_letter_generation_pre_render():
         job_description = st.session_state.get('cl_job_description', '')
         additional_notes = st.session_state.get('cl_additional_notes', '')
         
-        # Gather skills and summary from resume data
-        skills = ', '.join(st.session_state.get('skills', []))
-        summary = st.session_state.get('summary', '')
+        # Get resume data if linked
+        resume_data = st.session_state.get('cl_resume_data', {})
+        
+        # Gather skills and summary from resume data or current session
+        if resume_data:
+            # Use data from linked resume
+            skills_list = resume_data.get('skills', [])
+            if isinstance(skills_list, str):
+                skills = skills_list
+            else:
+                skills = ', '.join(skills_list) if skills_list else ''
+            summary = resume_data.get('summary', '')
+        else:
+            # Fallback to current session state
+            skills = ', '.join(st.session_state.get('skills', []))
+            summary = st.session_state.get('summary', '')
         
         # Validate required fields
         if not job_title:

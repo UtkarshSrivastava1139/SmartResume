@@ -15,6 +15,8 @@
 - **Experience Bullets**: Transform basic job descriptions into impact-driven bullet points
 - **Project Descriptions**: Enhance technical project details with AI
 - **Skills Optimization**: Get relevant skill suggestions for your target role
+- **Cover Letters**: AI-generated cover letters tailored to job descriptions
+- **Resume Integration**: Link cover letters to saved resumes for better AI context
 
 ### 📊 ATS-Optimized Output
 - Clean, parseable PDF format
@@ -22,13 +24,16 @@
 - No complex graphics or tables
 - Proper font choices (Arial/Calibri)
 - Consistent formatting
+- Professional cover letter layout
 
 ### ⚡ User-Friendly Interface
 - Simple, intuitive forms
-- Real-time resume preview
+- Real-time resume and cover letter preview
 - One-click PDF download
+- Save/Load resume functionality
+- Export/Import data as JSON
 - Mobile-responsive design
-- Dark mode support
+- Modern, professional UI
 
 ## 🚀 Quick Start
 
@@ -36,7 +41,7 @@
 
 - Python 3.10 or higher
 - pip (Python package manager)
-- Google Gemini API Key (free tier available)
+- Google Gemini API Key (free tier available) **OR** OpenRouter API Key (free models available)
 
 ### Installation
 
@@ -62,16 +67,27 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. **Get your Gemini API Key**
+4. **Get your AI API Key**
+   
+   **Option 1: Google Gemini (Recommended)**
    - Visit: https://aistudio.google.com/app/apikey
    - Click "Create API Key"
    - Copy the generated key
+   
+   **Option 2: OpenRouter (Free Models Available)**
+   - Visit: https://openrouter.ai/keys
+   - Sign up and create an API key
+   - Free models like `google/gemma-2-9b-it:free` available
 
 5. **Configure environment variables**
    - Copy `.env.example` to `.env`
    - Add your API key:
    ```
-   GEMINI_API_KEY=your_api_key_here
+   # Option 1: Gemini
+   GEMINI_API_KEY=your_gemini_api_key_here
+   
+   # Option 2: OpenRouter
+   OPENROUTER_API_KEY=your_openrouter_api_key_here
    ```
 
 6. **Run the application**
@@ -128,11 +144,15 @@ The app will open in your browser at `http://localhost:8501`
 ## 🛠️ Technology Stack
 
 - **Frontend Framework**: Streamlit 1.28+
-- **AI Engine**: Google Gemini API (`gemini-2.0-flash-exp`)
+- **AI Engines**: 
+  - Google Gemini API (`gemini-2.0-flash-exp`)
+  - OpenRouter API (free models available)
 - **PDF Generation**: FPDF2
 - **Language**: Python 3.10+
+- **Storage**: Session-based local storage with JSON export/import
 - **Additional Libraries**: 
   - google-generativeai
+  - requests (for OpenRouter)
   - python-dotenv
   - Pillow
 
@@ -144,30 +164,30 @@ smartresume-ai/
 ├── app.py                          # Main Streamlit application
 ├── requirements.txt                # Python dependencies
 ├── README.md                       # This file
+├── PROJECT_INFO.md                 # Detailed project documentation
 ├── .env.example                    # Environment variables template
 ├── .gitignore                      # Git ignore rules
 │
 ├── components/                     # UI components
 │   ├── __init__.py
-│   ├── form_sections.py           # Input forms
-│   ├── ai_generator.py            # AI content generation
+│   ├── form_sections.py           # Resume input forms
+│   ├── ai_generator.py            # AI resume content generation
 │   ├── preview.py                 # Resume preview
-│   └── pdf_exporter.py            # PDF generation
-│
-├── templates/                      # Resume templates
-│   ├── __init__.py
-│   └── classic_template.py        # Classic template
+│   ├── pdf_exporter.py            # PDF generation (resume & cover letter)
+│   ├── cover_letter_form.py       # Cover letter input forms
+│   ├── cover_letter_generator.py  # AI cover letter generation
+│   └── resume_manager.py          # Save/Load/Export/Import functionality
 │
 ├── utils/                          # Utility functions
 │   ├── __init__.py
+│   ├── ai_client.py               # Unified AI client (Gemini + OpenRouter)
 │   ├── gemini_client.py           # Gemini API wrapper
-│   ├── validators.py              # Input validation
-│   ├── prompts.py                 # AI prompt templates
-│   └── helpers.py                 # Helper functions
+│   ├── openrouter_client.py       # OpenRouter API wrapper
+│   └── storage.py                 # Local storage management
 │
 └── assets/                         # Static assets
     └── styles/
-        └── custom.css             # Custom styling
+        └── custom.css             # Custom professional styling
 ```
 
 ## 🎯 Key Features Explained
@@ -279,11 +299,13 @@ If this project helped you create a great resume, please give it a ⭐ on GitHub
 - [ ] Job description analyzer
 - [ ] Resume scoring system
 - [ ] Multi-language support
-- [ ] Cover letter generation
+- [x] Cover letter generation ✅
 - [ ] LinkedIn integration
-- [ ] Resume version control
+- [x] Resume version control (Save/Load) ✅
 - [ ] Collaboration features
+- [ ] Cloud storage integration
+- [ ] Resume analytics dashboard
 
 ---
 
-**Version 1.0.0** - Academic Project
+**Version 2.0.0** - Enhanced with Cover Letter & Storage Features

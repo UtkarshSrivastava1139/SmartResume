@@ -28,13 +28,26 @@ from components.cover_letter_generator import (
     render_cover_letter_generator,
     handle_cover_letter_generation_pre_render
 )
+from components.resume_manager import (
+    handle_resume_load_pre_render,
+    render_save_resume_section,
+    render_load_resume_section,
+    render_export_import_section,
+    render_resume_selector_for_cover_letter,
+    render_save_cover_letter_section
+)
 
 # Page configuration
 st.set_page_config(
     page_title="SmartResume AI - AI-Powered Resume Builder",
-    page_icon="RS",
+    page_icon="📄",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://github.com/UtkarshSrivastava1139/SmartResume',
+        'Report a bug': 'https://github.com/UtkarshSrivastava1139/SmartResume/issues',
+        'About': '# SmartResume AI\nAI-Powered Resume & Cover Letter Builder with Google Gemini'
+    }
 )
 
 # Load custom CSS
@@ -97,8 +110,8 @@ def main():
     
     # Sidebar
     with st.sidebar:
-        st.image("https://img.icons8.com/fluency/96/000000/resume.png", width=80)
-        st.title("Navigation")
+        st.image("https://img.icons8.com/fluency/96/000000/resume.png", width=60)
+        st.markdown("### Navigation")
         
         page = st.radio(
             "Go to:",
@@ -197,6 +210,9 @@ def render_builder_page():
     # Get cached AI Generator instance
     ai_generator = get_ai_generator()
     
+    # Handle resume loading BEFORE rendering widgets
+    handle_resume_load_pre_render()
+    
     # Handle any pending AI generation BEFORE rendering widgets
     handle_ai_generation_pre_render(ai_generator)
     
@@ -276,6 +292,19 @@ def render_builder_page():
             'certifications': certifications_data
         }
         
+        # Update save section with resume data
+        with st.expander("💾 Save & Load Resume", expanded=False):
+            tab1, tab2, tab3 = st.tabs(["Save", "Load", "Export/Import"])
+            
+            with tab1:
+                render_save_resume_section(resume_data)
+            
+            with tab2:
+                render_load_resume_section()
+            
+            with tab3:
+                render_export_import_section()
+        
         # Handle AI generation
         handle_ai_generation(ai_buttons, ai_generator, resume_data)
         
@@ -341,6 +370,16 @@ def render_cover_letter_page():
     st.markdown("## Cover Letter Generator")
     st.caption("Create a professional, ATS-optimized cover letter tailored to your target role")
     
+    # Resume Linking Section
+    with st.expander("🔗 Link to Resume (Recommended)", expanded=True):
+        st.info("📋 Link this cover letter to a saved resume for AI to use your skills, experience, and achievements!")
+        render_resume_selector_for_cover_letter()
+        
+        if st.session_state.get('cl_linked_resume_name'):
+            st.success(f"✅ Linked to resume: **{st.session_state['cl_linked_resume_name']}**")
+    
+    st.markdown("---")
+    
     # Personal Information Section (at top)
     render_cover_letter_personal_info()
     
@@ -362,6 +401,11 @@ def render_cover_letter_page():
         
         # Content editor
         render_cover_letter_content()
+        
+        st.markdown("---")
+        
+        # Save cover letter section
+        render_save_cover_letter_section()
     
     with col_right:
         # Preview section
