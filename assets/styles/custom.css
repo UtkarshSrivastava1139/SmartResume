@@ -1,0 +1,79 @@
+/* Custom Streamlit Styling for SmartResume AI */
+
+/* Main container */
+.main {
+    background-color: #f8f9fa;
+}
+
+/* Headers */
+h1 {
+    color: #1f77b4;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 700;
+}
+
+h2, h3 {
+    color: #2c3e50;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Buttons */
+.stButton>button {
+    background-color: #1f77b4;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    padding: 0.5rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.stButton>button:hover {
+    background-color: #155a8a;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Input fields */
+.stTextInput>div>div>input,
+.stTextArea>div>div>textarea {
+    border-radius: 6px;
+    border: 1px solid #bdc3c7;
+}
+
+/* Preview container */
+.preview-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Section dividers */
+.section-divider {
+    border-bottom: 2px solid #1f77b4;
+    margin: 1rem 0;
+}
+
+/* Success message */
+.success-message {
+    background-color: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 1rem;
+    border-radius: 4px;
+    color: #155724;
+}
+
+/* Error message */
+.error-message {
+    background-color: #f8d7da;
+    border-left: 4px solid #dc3545;
+    padding: 1rem;
+    border-radius: 4px;
+    color: #721c24;
+}
+
+/* Loading spinner */
+.stSpinner>div {
+    border-top-color: #1f77b4 !important;
+}
