@@ -221,7 +221,9 @@ section[data-testid="stSidebar"] [role="radiogroup"] label:hover {
 }
 
 /* ===== Expander (Tabs for Add Experience, Add Projects) ===== */
-.streamlit-expanderHeader {
+details summary,
+.streamlit-expanderHeader,
+[data-testid="stExpander"] summary {
     background-color: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
     border-radius: 8px !important;
@@ -233,18 +235,28 @@ section[data-testid="stSidebar"] [role="radiogroup"] label:hover {
     transition: all 0.2s ease !important;
 }
 
-.streamlit-expanderHeader:hover {
+details summary:hover,
+.streamlit-expanderHeader:hover,
+[data-testid="stExpander"] summary:hover {
     background-color: #f8fafc !important;
     border-color: #cbd5e1 !important;
 }
 
+details summary p,
+details summary div,
+details summary span,
 .streamlit-expanderHeader p,
 .streamlit-expanderHeader div,
-.streamlit-expanderHeader span {
+.streamlit-expanderHeader span,
+[data-testid="stExpander"] summary p,
+[data-testid="stExpander"] summary div,
+[data-testid="stExpander"] summary span {
     color: #1e293b !important;
 }
 
-.streamlit-expanderContent {
+details,
+.streamlit-expanderContent,
+[data-testid="stExpander"] {
     background-color: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
     border-top: none !important;
@@ -253,10 +265,18 @@ section[data-testid="stSidebar"] [role="radiogroup"] label:hover {
     margin-top: -1px !important;
 }
 
+details p,
+details div,
+details span,
+details label,
 .streamlit-expanderContent p,
 .streamlit-expanderContent div,
 .streamlit-expanderContent span,
-.streamlit-expanderContent label {
+.streamlit-expanderContent label,
+[data-testid="stExpander"] p,
+[data-testid="stExpander"] div,
+[data-testid="stExpander"] span,
+[data-testid="stExpander"] label {
     color: #1e293b !important;
 }
 
