@@ -140,6 +140,15 @@ def main():
         
         st.markdown("---")
         st.info("**Tip**: Use the AI enhancement features to create professional, ATS-optimized content!")
+        
+        # Show AI Provider at bottom of sidebar
+        try:
+            ai_gen = get_ai_generator()
+            if ai_gen and ai_gen.client:
+                provider = ai_gen.client.get_provider_name()
+                st.caption(f"🤖 AI Provider: **{provider}**")
+        except:
+            pass
     
     # Pages
     if page == "Home":
@@ -236,13 +245,6 @@ def render_builder_page():
         
         You can still use the app, but AI features will be disabled.
         """)
-    else:
-        # Show which provider is active
-        try:
-            provider = ai_generator.client.get_provider_name()
-            st.info(f"AI Provider: **{provider}** is active")
-        except:
-            pass
     
     # Create two-column layout
     col_form, col_preview = st.columns([1, 1])
