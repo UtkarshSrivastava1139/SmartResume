@@ -1,0 +1,12 @@
+[theme]
+# Force light theme to prevent color conflicts
+primaryColor="#3b82f6"
+backgroundColor="#f0f2f6"
+secondaryBackgroundColor="#ffffff"
+textColor="#1e293b"
+font="sans serif"
+
+[server]
+headless = true
+enableCORS = false
+enableXsrfProtection = true

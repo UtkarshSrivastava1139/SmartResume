@@ -1,21 +1,29 @@
 /* ====================================
    SmartResume AI - Clean Professional Styles
+   Force Light Theme Colors
    ==================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
-/* ===== Main App Background ===== */
+/* ===== Force Light Theme - Override Streamlit Theme Toggle ===== */
+[data-testid="stAppViewContainer"],
 .stApp {
-    background: #f0f2f6;
+    background: #f0f2f6 !important;
 }
 
 .main {
-    background-color: #f0f2f6;
+    background-color: #f0f2f6 !important;
 }
 
 .main .block-container {
     padding: 2rem 1rem;
     max-width: 1200px;
+    background-color: transparent !important;
+}
+
+/* Override all theme-based colors */
+* {
+    color: inherit;
 }
 
 /* ===== Typography ===== */
@@ -46,30 +54,51 @@ h3 {
 }
 
 /* Body text and paragraphs - ensure dark color on light background */
-p, div, span, li {
+p {
     color: #2c3e50 !important;
 }
 
-.stMarkdown p {
+div {
     color: #2c3e50 !important;
 }
 
-.stMarkdown div {
+span {
     color: #2c3e50 !important;
 }
 
+li {
+    color: #2c3e50 !important;
+}
+
+.stMarkdown p,
+.stMarkdown div,
+.stMarkdown span,
 .stMarkdown li {
     color: #2c3e50 !important;
 }
 
 /* Text elements */
-.element-container {
+.element-container,
+.element-container p,
+.element-container div,
+.element-container span {
     color: #2c3e50 !important;
 }
 
 /* Captions and small text */
 .caption, small, .stCaption {
     color: #475569 !important;
+}
+
+/* Info/Warning/Success/Error boxes text */
+[data-baseweb="notification"] p,
+[data-baseweb="notification"] div {
+    color: inherit !important;
+}
+
+.stAlert p,
+.stAlert div {
+    color: inherit !important;
 }
 
 /* ===== Buttons ===== */
