@@ -220,7 +220,7 @@ section[data-testid="stSidebar"] [role="radiogroup"] label:hover {
     background-color: rgba(59, 130, 246, 0.1) !important;
 }
 
-/* ===== Expander ===== */
+/* ===== Expander (Tabs for Add Experience, Add Projects) ===== */
 .streamlit-expanderHeader {
     background-color: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
@@ -238,6 +238,12 @@ section[data-testid="stSidebar"] [role="radiogroup"] label:hover {
     border-color: #cbd5e1 !important;
 }
 
+.streamlit-expanderHeader p,
+.streamlit-expanderHeader div,
+.streamlit-expanderHeader span {
+    color: #1e293b !important;
+}
+
 .streamlit-expanderContent {
     background-color: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
@@ -245,6 +251,13 @@ section[data-testid="stSidebar"] [role="radiogroup"] label:hover {
     border-radius: 0 0 8px 8px !important;
     padding: 1.25rem !important;
     margin-top: -1px !important;
+}
+
+.streamlit-expanderContent p,
+.streamlit-expanderContent div,
+.streamlit-expanderContent span,
+.streamlit-expanderContent label {
+    color: #1e293b !important;
 }
 
 /* ===== Alert/Info Boxes ===== */
