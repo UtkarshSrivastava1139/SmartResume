@@ -45,6 +45,33 @@ h3 {
     margin-top: 1rem !important;
 }
 
+/* Body text and paragraphs - ensure dark color on light background */
+p, div, span, li {
+    color: #2c3e50 !important;
+}
+
+.stMarkdown p {
+    color: #2c3e50 !important;
+}
+
+.stMarkdown div {
+    color: #2c3e50 !important;
+}
+
+.stMarkdown li {
+    color: #2c3e50 !important;
+}
+
+/* Text elements */
+.element-container {
+    color: #2c3e50 !important;
+}
+
+/* Captions and small text */
+.caption, small, .stCaption {
+    color: #475569 !important;
+}
+
 /* ===== Buttons ===== */
 .stButton > button {
     background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
@@ -96,6 +123,7 @@ h3 {
     font-size: 0.95rem !important;
     font-family: 'Inter', sans-serif !important;
     background-color: #ffffff !important;
+    color: #1e293b !important;
     transition: all 0.2s ease !important;
 }
 
@@ -112,6 +140,7 @@ h3 {
     border-radius: 8px !important;
     border: 2px solid #cbd5e1 !important;
     background-color: #ffffff !important;
+    color: #1e293b !important;
 }
 
 /* ===== Labels ===== */
