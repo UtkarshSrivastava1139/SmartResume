@@ -125,7 +125,6 @@ def render_cover_letter_content():
     # Editable text area for cover letter
     cover_letter = st.text_area(
         "Cover Letter Content",
-        value=st.session_state.get('cover_letter_content', ''),
         key='cover_letter_content',
         height=400,
         placeholder="Your AI-generated cover letter will appear here. You can edit it after generation.\n\nClick 'Generate Cover Letter' button above to create your personalized cover letter.",
@@ -179,58 +178,48 @@ def render_cover_letter_preview():
     company = st.session_state.get('cl_company', '[Company Name]')
     job_title = st.session_state.get('cl_job_title', '[Job Title]')
     
-    # Escape HTML in user content to prevent injection
-    import html
-    safe_name = html.escape(name)
-    safe_email = html.escape(email)
-    safe_phone = html.escape(phone)
-    safe_location = html.escape(location) if location else ''
-    safe_company = html.escape(company)
-    safe_job_title = html.escape(job_title)
-    safe_cover_letter = html.escape(cover_letter)
-    
-    # Build contact line
-    contact_parts = [safe_email, safe_phone]
-    if safe_location:
-        contact_parts.append(safe_location)
-    contact_line = " | ".join(contact_parts)
-    
-    # Render preview
+    # Use a styled container instead of HTML rendering
     with st.container():
-        st.markdown(f"""
-        <div style='border: 1px solid #ddd; padding: 20px; background-color: white; color: black;'>
-            <div style='text-align: right; margin-bottom: 20px;'>
-                <strong>{safe_name}</strong><br>
-                {contact_line}
-            </div>
-            
-            <div style='margin-bottom: 20px;'>
-                {today}
-            </div>
-            
-            <div style='margin-bottom: 20px;'>
-                Hiring Manager<br>
-                {safe_company}<br>
-            </div>
-            
-            <div style='margin-bottom: 20px;'>
-                <strong>Re: Application for {safe_job_title}</strong>
-            </div>
-            
-            <div style='margin-bottom: 20px;'>
-                Dear Hiring Manager,
-            </div>
-            
-            <div style='white-space: pre-wrap; line-height: 1.6;'>
-{safe_cover_letter}
-            </div>
-            
-            <div style='margin-top: 20px;'>
-                Sincerely,<br>
-                {safe_name}
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        # Create a visually distinct preview area
+        st.markdown("---")
+        
+        # Header with contact info (right-aligned)
+        col1, col2 = st.columns([2, 1])
+        with col2:
+            st.markdown(f"**{name}**")
+            contact_parts = [email, phone]
+            if location:
+                contact_parts.append(location)
+            st.caption(" | ".join(contact_parts))
+        
+        st.markdown("")  # Spacer
+        
+        # Date
+        st.text(today)
+        st.markdown("")
+        
+        # Recipient
+        st.text("Hiring Manager")
+        st.text(company)
+        st.markdown("")
+        
+        # Subject
+        st.markdown(f"**Re: Application for {job_title}**")
+        st.markdown("")
+        
+        # Salutation
+        st.text("Dear Hiring Manager,")
+        st.markdown("")
+        
+        # Cover letter body - display with justified alignment
+        st.markdown(f'<div style="text-align: justify;">{cover_letter}</div>', unsafe_allow_html=True)
+        st.markdown("")
+        
+        # Closing
+        st.text("Sincerely,")
+        st.text(name)
+        
+        st.markdown("---")
 
 
 def render_cover_letter_actions():
