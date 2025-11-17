@@ -104,7 +104,7 @@ li {
 /* ===== Buttons ===== */
 .stButton > button {
     background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-    color: white !important;
+    color: #ffffff !important;
     border: none !important;
     border-radius: 8px !important;
     padding: 0.65rem 1.75rem !important;
@@ -116,6 +116,12 @@ li {
     cursor: pointer !important;
 }
 
+.stButton > button p,
+.stButton > button div,
+.stButton > button span {
+    color: #ffffff !important;
+}
+
 .stButton > button:hover {
     background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
@@ -125,7 +131,7 @@ li {
 /* ===== Download Buttons ===== */
 .stDownloadButton > button {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-    color: white !important;
+    color: #ffffff !important;
     border: none !important;
     border-radius: 8px !important;
     padding: 0.65rem 1.75rem !important;
@@ -134,6 +140,12 @@ li {
     font-family: 'Inter', sans-serif !important;
     box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3) !important;
     transition: all 0.2s ease !important;
+}
+
+.stDownloadButton > button p,
+.stDownloadButton > button div,
+.stDownloadButton > button span {
+    color: #ffffff !important;
 }
 
 .stDownloadButton > button:hover {
