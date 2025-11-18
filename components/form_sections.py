@@ -130,9 +130,16 @@ def render_education_form():
                                  key="new_field")
         
         with col2:
-            year = st.number_input("Year of Graduation", 
+            status = st.radio("Status", ["Completed", "Pursuing"], key="new_status")
+            
+            if status == "Completed":
+                year_label = "Year of Graduation"
+            else:
+                year_label = "Expected Graduation Year"
+            
+            year = st.number_input(year_label, 
                                   min_value=1950, 
-                                  max_value=2030,
+                                  max_value=2035,
                                   value=2024,
                                   key="new_year")
             
@@ -163,7 +170,8 @@ def render_education_form():
                     'institution': institution,
                     'year': year,
                     'grade': grade_display,
-                    'grade_type': grade_type
+                    'grade_type': grade_type,
+                    'status': status
                 })
                 st.success("Education added!")
                 st.rerun()
@@ -328,7 +336,7 @@ def render_projects_form():
                     'technologies': technologies,
                     'url': project_url,
                     'description': description,
-                    'enhanced_description': ''  # Will be filled by AI
+                    'bullet_points': []  # Will be filled by AI enhancement
                 })
                 st.success("Project added!")
                 st.rerun()

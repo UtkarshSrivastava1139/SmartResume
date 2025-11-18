@@ -52,8 +52,10 @@ st.set_page_config(
 
 # Load custom CSS
 def load_custom_css():
-    """Load custom CSS styling"""
-    css_file = os.path.join(os.path.dirname(__file__), 'assets', 'styles', 'custom.css')
+    """Load custom CSS styling based on theme"""
+    theme = st.session_state.get('theme', 'light')
+    css_filename = 'dark.css' if theme == 'dark' else 'custom.css'
+    css_file = os.path.join(os.path.dirname(__file__), 'assets', 'styles', css_filename)
     if os.path.exists(css_file):
         with open(css_file) as f:
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -65,6 +67,7 @@ def initialize_session_state():
     """Initialize session state variables"""
     if 'initialized' not in st.session_state:
         st.session_state.initialized = True
+        st.session_state.theme = 'light'  # Default theme
         st.session_state.name = ''
         st.session_state.email = ''
         st.session_state.phone = ''
@@ -118,6 +121,16 @@ def main():
             ["Home", "Build Resume", "Cover Letter", "About"],
             label_visibility="collapsed"
         )
+        
+        st.markdown("---")
+        
+        # Theme Toggle
+        current_theme = st.session_state.get('theme', 'light')
+        theme_label = "🌙 Dark Mode" if current_theme == 'light' else "☀️ Light Mode"
+        
+        if st.button(theme_label, use_container_width=True):
+            st.session_state.theme = 'dark' if current_theme == 'light' else 'light'
+            st.rerun()
         
         st.markdown("---")
         st.markdown("### Features")

@@ -62,6 +62,16 @@ class ResumePDF(FPDF):
         self.set_auto_page_break(auto=True, margin=15)
         self.set_margins(left=10, top=10, right=10)
     
+    def header(self):
+        """Override header to prevent automatic header on new pages"""
+        # Only add header spacing on pages after the first
+        if self.page_no() > 1:
+            self.set_y(10)  # Set top margin for continuation pages
+    
+    def footer(self):
+        """Override footer to prevent automatic footer"""
+        pass  # No footer needed
+    
     def header_section(self, name, email, phone, location, linkedin='', portfolio=''):
         """Add header with personal information"""
         # Sanitize all inputs
@@ -212,7 +222,9 @@ def generate_resume_pdf(resume_data):
         pdf.section_title('Education')
         for edu in education_list:
             title = f"{edu['degree']} in {edu['field']}"
-            meta = f"{edu['institution']} | Graduated: {edu['year']} | Grade: {edu['grade']}"
+            status = edu.get('status', 'Completed')
+            status_label = 'Graduated' if status == 'Completed' else 'Expected'
+            meta = f"{edu['institution']} | {status_label}: {edu['year']} | Grade: {edu['grade']}"
             pdf.add_subsection(title, meta)
             pdf.ln(2)
         pdf.ln(2)
@@ -290,12 +302,18 @@ def generate_resume_pdf(resume_data):
             meta = ' | '.join(meta_parts) if meta_parts else ''
             pdf.add_subsection(title, meta)
             
-            # Add description
-            description = proj.get('enhanced_description') or proj.get('description', '')
-            if description:
-                pdf.set_font('Arial', '', 11)
-                pdf.set_x(pdf.l_margin)
-                pdf.multi_cell(0, 5, description)
+            # Add bullet points if available (STAR methodology)
+            bullet_points = proj.get('bullet_points', [])
+            if bullet_points:
+                for bullet in bullet_points:
+                    pdf.add_bullet_point(bullet)
+            else:
+                # Fallback to description if no bullets
+                description = proj.get('description', '')
+                if description:
+                    pdf.set_font('Arial', '', 11)
+                    pdf.set_x(pdf.l_margin)
+                    pdf.multi_cell(0, 5, description)
             
             if proj.get('url'):
                 pdf.set_font('Arial', 'I', 10)
@@ -348,6 +366,18 @@ def create_download_button(resume_data):
         return None, None
 
 
+class CoverLetterPDF(FPDF):
+    """Custom PDF class for cover letter generation"""
+    
+    def header(self):
+        """Override header to prevent automatic header on new pages"""
+        pass
+    
+    def footer(self):
+        """Override footer to prevent automatic footer"""
+        pass
+
+
 def generate_cover_letter_pdf(name, email, phone, location, company, job_title, cover_letter_content):
     """
     Generate a professional cover letter PDF
@@ -366,7 +396,7 @@ def generate_cover_letter_pdf(name, email, phone, location, company, job_title, 
     """
     from datetime import datetime
     
-    pdf = FPDF()
+    pdf = CoverLetterPDF()
     pdf.add_page()
     
     # Set margins (1 inch = 25.4mm)
@@ -388,24 +418,24 @@ def generate_cover_letter_pdf(name, email, phone, location, company, job_title, 
     today = datetime.now().strftime("%B %d, %Y")
     pdf.set_font('Arial', '', 11)
     pdf.cell(0, 5, today, ln=True)
-    pdf.ln(5)
+    pdf.ln(3)
     
     # Recipient Address
     pdf.cell(0, 5, "Hiring Manager", ln=True)
     if company:
         pdf.cell(0, 5, sanitize_text(company), ln=True)
-    pdf.ln(5)
+    pdf.ln(3)
     
     # Subject Line
     pdf.set_font('Arial', 'B', 11)
     subject = f"Re: Application for {sanitize_text(job_title)}"
     pdf.cell(0, 5, subject, ln=True)
-    pdf.ln(5)
+    pdf.ln(3)
     
     # Salutation
     pdf.set_font('Arial', '', 11)
     pdf.cell(0, 5, "Dear Hiring Manager,", ln=True)
-    pdf.ln(5)
+    pdf.ln(3)
     
     # Cover Letter Body
     pdf.set_font('Arial', '', 11)
@@ -417,14 +447,13 @@ def generate_cover_letter_pdf(name, email, phone, location, company, job_title, 
     for paragraph in paragraphs:
         if paragraph.strip():
             # Use multi_cell for paragraph wrapping
-            pdf.multi_cell(0, 6, paragraph.strip())
-            pdf.ln(3)  # Space between paragraphs
+            pdf.multi_cell(0, 5.5, paragraph.strip())
+            pdf.ln(2.5)  # Space between paragraphs
     
-    pdf.ln(2)
-    
-    # Closing
+    # Closing - minimal spacing to keep on one page
+    pdf.ln(1)
     pdf.cell(0, 5, "Sincerely,", ln=True)
-    pdf.ln(10)
+    pdf.ln(2)  # Minimal spacing between "Sincerely" and name
     pdf.set_font('Arial', 'B', 11)
     pdf.cell(0, 5, sanitize_text(name), ln=True)
     

@@ -3,8 +3,13 @@ AI Prompt Templates for SmartResume AI
 Contains all prompt templates for different resume sections
 """
 
-def get_summary_prompt(name, target_role, experience_years, key_skills, education):
+def get_summary_prompt(name, target_role, experience_years, key_skills, education, education_status="Completed"):
     """Generate prompt for professional summary"""
+    if education_status == "Pursuing":
+        edu_context = f"Currently pursuing {education}"
+    else:
+        edu_context = f"{education} graduate"
+    
     return f"""You are an expert resume writer. Generate a compelling professional summary for a resume.
 
 Candidate Details:
@@ -12,7 +17,7 @@ Candidate Details:
 - Target Role: {target_role}
 - Years of Experience: {experience_years}
 - Key Skills: {key_skills}
-- Education: {education}
+- Education: {edu_context}
 
 Requirements:
 1. Write a 3-4 line professional summary (50-70 words)
@@ -22,8 +27,10 @@ Requirements:
 5. Focus on value proposition to employer
 6. Make it concise and impactful
 7. Do not use first person pronouns (I, me, my)
-8. Do NOT use any markdown formatting (no **, *, _, etc.)
-9. Use plain text only
+8. CRITICAL: If status is "Pursuing", the candidate is CURRENTLY A STUDENT, not a graduate. Use phrases like "pursuing", "student", or "seeking opportunities while completing degree"
+9. CRITICAL: If status is "Completed", the candidate has graduated. Use phrases like "graduate", "holds degree", or "completed"
+10. Do NOT use any markdown formatting (no **, *, _, etc.)
+11. Use plain text only
 
 Generate only the professional summary text, no additional commentary:"""
 
@@ -51,7 +58,7 @@ Generate only the bullet points (one per line, no bullet characters needed), no 
 
 def get_project_prompt(project_title, duration, technologies, description):
     """Generate prompt for project description"""
-    return f"""You are a technical resume writer. Enhance this project description for a resume.
+    return f"""You are a technical resume writer specializing in creating impact-driven project descriptions using the STAR methodology.
 
 Project Information:
 - Title: {project_title}
@@ -59,17 +66,25 @@ Project Information:
 - Technologies: {technologies}
 - Basic Description: {description}
 
-Create an enhanced 2-3 line project description (40-60 words) that:
-1. Clearly explains what the project does and its purpose
-2. Highlights technical complexity and architecture
-3. Mentions specific technologies and frameworks used
-4. Shows impact, results, or scale (if available)
-5. Uses professional technical language
-6. Is concise and ATS-friendly
-7. Do NOT use any markdown formatting (no **, *, _, etc.)
-8. Use plain text only
+Transform this into 2-3 professional bullet points following the STAR methodology:
+- Situation: Brief context/problem being solved
+- Task: What needed to be accomplished
+- Action: Specific technical actions and technologies used
+- Result: Measurable outcomes, impact, or achievements
 
-Generate only the enhanced description, no additional commentary:"""
+Requirements:
+1. Create 2-3 bullet points that follow STAR structure
+2. Start each bullet with strong action verbs (Developed, Engineered, Built, Implemented, Designed, Created, etc.)
+3. Include specific technologies and frameworks mentioned
+4. Add quantifiable metrics where possible (performance improvements, users served, data processed, etc.)
+5. Highlight technical complexity and architectural decisions
+6. Show impact and results achieved
+7. Use past tense consistently
+8. Keep each bullet concise (15-25 words)
+9. Do NOT use any markdown formatting (no **, *, _, etc.)
+10. Use plain text only
+
+Generate only the bullet points (one per line, no bullet characters needed), no additional commentary:"""
 
 def get_skills_suggestion_prompt(target_role, current_skills, industry="Technology"):
     """Generate prompt for skills suggestions"""
@@ -95,8 +110,13 @@ Requirements:
 
 Return only skill names, comma-separated, no additional commentary:"""
 
-def get_cover_letter_prompt(name, email, phone, job_title, company="", job_description="", skills="", summary="", additional_notes=""):
+def get_cover_letter_prompt(name, email, phone, job_title, company="", job_description="", skills="", summary="", additional_notes="", education_status="Completed"):
     """Generate prompt for cover letter"""
+    if education_status == "Pursuing":
+        status_context = "currently pursuing my degree as a student"
+    else:
+        status_context = "a recent graduate who has completed my degree"
+    
     return f"""You are a professional career coach and cover letter writer. 
 Using the information below, generate a concise, compelling cover letter addressed to the hiring manager. 
 The tone should be formal, confident, and enthusiastic. The content should be ATS-optimized and free of any markdown or special characters.
@@ -106,6 +126,7 @@ Candidate Details:
 - Contact: {email}, {phone}
 - Target Job Title: {job_title}
 - Target Company: {company if company else "Not specified"}
+- Education Status: {status_context}
 
 Job Description/Requirements:
 {job_description if job_description else "Not provided - use general best practices for the role"}
@@ -123,11 +144,13 @@ Instructions:
 2. Keep total length between 300-400 words
 3. Include keywords and phrases relevant to {job_title} roles for ATS optimization
 4. Use professional, confident tone without being overly casual
-5. Do NOT use any markdown formatting (no **, *, _, etc.)
-6. Use plain text only - no special characters or bullets
-7. Make it personalized and compelling, not generic
-8. If company name is provided, mention it naturally in the content
-9. Avoid clichés and overused phrases
+5. CRITICAL: If education status says "pursuing" or "student", they are CURRENTLY STUDYING, not graduated. Use appropriate language.
+6. CRITICAL: If education status says "graduate" or "completed", they have finished their degree. Use past tense.
+7. Do NOT use any markdown formatting (no **, *, _, etc.)
+8. Use plain text only - no special characters or bullets
+9. Make it personalized and compelling, not generic
+10. If company name is provided, mention it naturally in the content
+11. Avoid clichés and overused phrases
 
 Generate only the cover letter body text (do not include "Dear Hiring Manager" salutation or signature block), no additional commentary:"""
 

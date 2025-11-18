@@ -114,7 +114,9 @@ def render_resume_preview(resume_data):
         for edu in education_list:
             preview_html += f'<div class="preview-content">'
             preview_html += f'<div class="preview-subtitle">{edu["degree"]} in {edu["field"]}</div>'
-            preview_html += f'<div class="preview-meta">{edu["institution"]} | Graduated: {edu["year"]} | Grade: {edu["grade"]}</div>'
+            status = edu.get('status', 'Completed')
+            status_label = 'Graduated' if status == 'Completed' else 'Expected'
+            preview_html += f'<div class="preview-meta">{edu["institution"]} | {status_label}: {edu["year"]} | Grade: {edu["grade"]}</div>'
             preview_html += '</div>'
     
     # Skills
@@ -187,10 +189,18 @@ def render_resume_preview(resume_data):
             if meta_parts:
                 preview_html += f'<div class="preview-meta">{" | ".join(meta_parts)}</div>'
             
-            # Show enhanced description if available, otherwise original
-            description = proj.get('enhanced_description') or proj.get('description', '')
-            if description:
-                preview_html += f'<div style="margin-top: 4px;">{description}</div>'
+            # Show bullet points if available (STAR methodology)
+            bullet_points = proj.get('bullet_points', [])
+            if bullet_points:
+                preview_html += '<ul style="margin: 8px 0; padding-left: 20px;">'
+                for bullet in bullet_points:
+                    preview_html += f'<li style="margin: 4px 0;">{bullet}</li>'
+                preview_html += '</ul>'
+            else:
+                # Fallback to description if no bullets
+                description = proj.get('description', '')
+                if description:
+                    preview_html += f'<div style="margin-top: 4px;">{description}</div>'
             
             if proj.get('url'):
                 preview_html += f'<div class="preview-meta">URL: {proj["url"]}</div>'

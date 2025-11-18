@@ -44,14 +44,16 @@ class AIGenerator:
         if not target_role:
             return "Please enter a target job role first."
         
-        # Prepare education string
+        # Prepare education string and status
         if isinstance(education, list) and education:
             edu_str = f"{education[0]['degree']} in {education[0]['field']}"
+            edu_status = education[0].get('status', 'Completed')
         else:
             edu_str = "Bachelor's Degree"
+            edu_status = "Completed"
         
         prompt = get_summary_prompt(name, target_role, experience_years, 
-                                   key_skills, edu_str)
+                                   key_skills, edu_str, edu_status)
         
         with st.spinner("🤖 Generating professional summary..."):
             result = self.client.generate_content(prompt)
@@ -88,7 +90,7 @@ class AIGenerator:
     
     def enhance_project_description(self, project_title, duration, technologies, description):
         """
-        Enhance project description using AI
+        Enhance project description using AI with STAR methodology bullet points
         
         Args:
             project_title (str): Project title
@@ -97,20 +99,22 @@ class AIGenerator:
             description (str): Basic description
             
         Returns:
-            str: Enhanced project description
+            list: Enhanced project description as bullet points
         """
         if not self.is_available:
-            return "AI service is not available. Using original description."
+            return ["AI service is not available. Using original description."]
         
         if not description:
-            return "Please enter a basic project description first."
+            return ["Please enter a basic project description first."]
         
         prompt = get_project_prompt(project_title, duration, technologies, description)
         
-        with st.spinner("🤖 Enhancing project description..."):
+        with st.spinner("🤖 Enhancing project description with STAR methodology..."):
             result = self.client.generate_content(prompt)
         
-        return result
+        # Clean and format bullet points
+        bullets = clean_bullet_points(result)
+        return bullets if bullets else [result]
     
     def suggest_skills(self, target_role, current_skills):
         """
@@ -203,15 +207,15 @@ class AIGenerator:
                 for proj in resume_data['projects_list']:
                     description = proj.get('description', '')
                     if description and len(description) > 10:
-                        enhanced_desc = self.enhance_project_description(
+                        enhanced_bullets = self.enhance_project_description(
                             project_title=proj['title'],
                             duration=proj.get('duration', ''),
                             technologies=proj.get('technologies', ''),
                             description=description
                         )
-                        if enhanced_desc and not enhanced_desc.startswith("Please"):
+                        if enhanced_bullets and not enhanced_bullets[0].startswith("Please"):
                             proj_copy = proj.copy()
-                            proj_copy['enhanced_description'] = enhanced_desc
+                            proj_copy['bullet_points'] = enhanced_bullets
                             enhanced_projects.append(proj_copy)
                         else:
                             enhanced_projects.append(proj)
@@ -468,24 +472,24 @@ def handle_ai_generation(ai_buttons, ai_generator, resume_data):
         if resume_data.get('projects_list'):
             enhanced_count = 0
             
-            with st.spinner("Enhancing all project descriptions with AI..."):
+            with st.spinner("Enhancing all project descriptions with STAR methodology..."):
                 for idx, proj in enumerate(st.session_state.projects_list):
                     description = proj.get('description', '')
                     
                     if description and len(description) > 10:
-                        enhanced_desc = ai_generator.enhance_project_description(
+                        enhanced_bullets = ai_generator.enhance_project_description(
                             project_title=proj['title'],
                             duration=proj.get('duration', ''),
                             technologies=proj.get('technologies', ''),
                             description=description
                         )
                         
-                        if enhanced_desc and not enhanced_desc.startswith("Please"):
-                            st.session_state.projects_list[idx]['enhanced_description'] = enhanced_desc
+                        if enhanced_bullets and not enhanced_bullets[0].startswith("Please"):
+                            st.session_state.projects_list[idx]['bullet_points'] = enhanced_bullets
                             enhanced_count += 1
             
             if enhanced_count > 0:
-                st.success(f"Enhanced {enhanced_count} project descriptions!")
+                st.success(f"Enhanced {enhanced_count} projects with STAR methodology bullet points!")
                 st.rerun()
             else:
                 st.warning("Please add project descriptions first.")

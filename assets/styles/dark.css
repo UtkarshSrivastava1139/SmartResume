@@ -1,0 +1,355 @@
+/* ====================================
+   SmartResume AI - Dark Mode Styles
+   ==================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+/* ===== Main App Background - Dark ===== */
+[data-testid="stAppViewContainer"],
+.stApp {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+}
+
+.main {
+    background-color: transparent !important;
+}
+
+.main .block-container {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    background-color: transparent !important;
+}
+
+/* ===== Typography - Dark Mode ===== */
+h1 {
+    font-family: 'Poppins', sans-serif !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 2.5rem !important;
+    margin-bottom: 1rem !important;
+    letter-spacing: -0.5px !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    font-family: 'Poppins', sans-serif !important;
+    color: #e2e8f0 !important;
+    font-weight: 600 !important;
+    font-size: 1.75rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1rem !important;
+}
+
+h3 {
+    font-family: 'Inter', sans-serif !important;
+    color: #cbd5e1 !important;
+    font-weight: 600 !important;
+    font-size: 1.25rem !important;
+    margin-top: 1rem !important;
+}
+
+/* Body text - Light colors on dark background */
+p {
+    color: #cbd5e1 !important;
+}
+
+div {
+    color: #cbd5e1 !important;
+}
+
+span {
+    color: #cbd5e1 !important;
+}
+
+li {
+    color: #cbd5e1 !important;
+}
+
+.stMarkdown p,
+.stMarkdown div,
+.stMarkdown span,
+.stMarkdown li {
+    color: #cbd5e1 !important;
+}
+
+.element-container,
+.element-container p,
+.element-container div,
+.element-container span {
+    color: #cbd5e1 !important;
+}
+
+.caption, small, .stCaption {
+    color: #94a3b8 !important;
+}
+
+/* Alert boxes - inherit colors */
+[data-baseweb="notification"] p,
+[data-baseweb="notification"] div {
+    color: inherit !important;
+}
+
+.stAlert p,
+.stAlert div {
+    color: inherit !important;
+}
+
+/* ===== Buttons - Dark Mode ===== */
+.stButton > button,
+button[kind="primary"],
+button[kind="secondary"] {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0.65rem 1.75rem !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    font-family: 'Inter', sans-serif !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+}
+
+.stButton > button p,
+.stButton > button div,
+.stButton > button span,
+button[kind="primary"] p,
+button[kind="primary"] div,
+button[kind="primary"] span,
+button[kind="secondary"] p,
+button[kind="secondary"] div,
+button[kind="secondary"] span {
+    color: #ffffff !important;
+}
+
+.stButton > button:hover,
+button[kind="primary"]:hover,
+button[kind="secondary"]:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ===== Download Buttons - Dark Mode ===== */
+.stDownloadButton > button {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0.65rem 1.75rem !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    font-family: 'Inter', sans-serif !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
+    transition: all 0.2s ease !important;
+}
+
+.stDownloadButton > button p,
+.stDownloadButton > button div,
+.stDownloadButton > button span {
+    color: #ffffff !important;
+}
+
+.stDownloadButton > button:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ===== Input Fields - Dark Mode ===== */
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea,
+.stNumberInput > div > div > input {
+    border-radius: 8px !important;
+    border: 2px solid #475569 !important;
+    padding: 0.65rem 1rem !important;
+    font-size: 0.95rem !important;
+    font-family: 'Inter', sans-serif !important;
+    background-color: #1e293b !important;
+    color: #e2e8f0 !important;
+    transition: all 0.2s ease !important;
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus,
+.stNumberInput > div > div > input:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+    outline: none !important;
+    background-color: #0f172a !important;
+}
+
+/* ===== Selectbox - Dark Mode ===== */
+.stSelectbox > div > div > div {
+    border-radius: 8px !important;
+    border: 2px solid #475569 !important;
+    background-color: #1e293b !important;
+    color: #e2e8f0 !important;
+}
+
+/* ===== Labels - Dark Mode ===== */
+.stTextInput > label,
+.stTextArea > label,
+.stSelectbox > label,
+.stNumberInput > label,
+.stDateInput > label {
+    color: #cbd5e1 !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    font-family: 'Inter', sans-serif !important;
+    margin-bottom: 0.4rem !important;
+}
+
+/* ===== Sidebar - Dark Mode ===== */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0f172a 0%, #020617 100%) !important;
+}
+
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 {
+    color: #ffffff !important;
+}
+
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] label {
+    color: #cbd5e1 !important;
+}
+
+section[data-testid="stSidebar"] .stRadio > label {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+section[data-testid="stSidebar"] [role="radiogroup"] label {
+    color: #cbd5e1 !important;
+    font-size: 0.9rem !important;
+    padding: 0.5rem 0.85rem !important;
+    border-radius: 6px !important;
+    transition: background-color 0.2s ease !important;
+}
+
+section[data-testid="stSidebar"] [role="radiogroup"] label:hover {
+    background-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+/* ===== Expander - Dark Mode ===== */
+details summary,
+.streamlit-expanderHeader,
+[data-testid="stExpander"] summary {
+    background-color: #1e293b !important;
+    border: 1px solid #475569 !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    color: #e2e8f0 !important;
+    padding: 0.85rem 1.25rem !important;
+    font-size: 0.95rem !important;
+    font-family: 'Inter', sans-serif !important;
+    transition: all 0.2s ease !important;
+}
+
+details summary:hover,
+.streamlit-expanderHeader:hover,
+[data-testid="stExpander"] summary:hover {
+    background-color: #334155 !important;
+    border-color: #64748b !important;
+}
+
+details summary p,
+details summary div,
+details summary span,
+.streamlit-expanderHeader p,
+.streamlit-expanderHeader div,
+.streamlit-expanderHeader span,
+[data-testid="stExpander"] summary p,
+[data-testid="stExpander"] summary div,
+[data-testid="stExpander"] summary span {
+    color: #e2e8f0 !important;
+}
+
+details,
+.streamlit-expanderContent,
+[data-testid="stExpander"] {
+    background-color: #1e293b !important;
+    border: 1px solid #475569 !important;
+    border-top: none !important;
+    border-radius: 0 0 8px 8px !important;
+    padding: 1.25rem !important;
+    margin-top: -1px !important;
+}
+
+details p,
+details div,
+details span,
+details label,
+.streamlit-expanderContent p,
+.streamlit-expanderContent div,
+.streamlit-expanderContent span,
+.streamlit-expanderContent label,
+[data-testid="stExpander"] p,
+[data-testid="stExpander"] div,
+[data-testid="stExpander"] span,
+[data-testid="stExpander"] label {
+    color: #cbd5e1 !important;
+}
+
+/* ===== Alert Boxes - Dark Mode ===== */
+.stAlert {
+    border-radius: 8px !important;
+    padding: 0.85rem 1rem !important;
+    font-size: 0.9rem !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* ===== Divider - Dark Mode ===== */
+hr {
+    border: none !important;
+    height: 1px !important;
+    background-color: #475569 !important;
+    margin: 1.5rem 0 !important;
+}
+
+/* ===== Preview Container - Dark Mode ===== */
+.preview-container {
+    background-color: #1e293b !important;
+    padding: 2rem !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+    font-family: 'Inter', Arial, sans-serif !important;
+    border: 1px solid #475569 !important;
+}
+
+/* ===== Scrollbar - Dark Mode ===== */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f172a;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+    border-radius: 10px;
+    border: 2px solid #0f172a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+/* ===== Streamlit Branding ===== */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    h1 { font-size: 2rem !important; }
+    h2 { font-size: 1.5rem !important; }
+    .main .block-container { padding: 1rem 0.75rem; }
+}

@@ -17,7 +17,7 @@ class CoverLetterGenerator:
         self.client = AIClient()
     
     def generate_cover_letter(self, name, email, phone, job_title, company="", 
-                             job_description="", skills="", summary="", additional_notes=""):
+                             job_description="", skills="", summary="", additional_notes="", education_status="Completed"):
         """
         Generate a professional cover letter using AI
         
@@ -31,6 +31,7 @@ class CoverLetterGenerator:
             skills (str): Key skills from resume
             summary (str): Professional summary from resume
             additional_notes (str): Any additional context
+            education_status (str): Education status - "Completed" or "Pursuing"
             
         Returns:
             dict: Result with 'success' boolean and 'content' or 'error' message
@@ -53,7 +54,8 @@ class CoverLetterGenerator:
                 job_description=job_description,
                 skills=skills,
                 summary=summary,
-                additional_notes=additional_notes
+                additional_notes=additional_notes,
+                education_status=education_status
             )
             
             # Call Gemini API
@@ -162,10 +164,24 @@ def handle_cover_letter_generation_pre_render():
             else:
                 skills = ', '.join(skills_list) if skills_list else ''
             summary = resume_data.get('summary', '')
+            
+            # Get education status from resume data
+            education_list = resume_data.get('education_list', [])
+            if education_list and isinstance(education_list, list):
+                education_status = education_list[0].get('status', 'Completed')
+            else:
+                education_status = 'Completed'
         else:
             # Fallback to current session state
             skills = ', '.join(st.session_state.get('skills', []))
             summary = st.session_state.get('summary', '')
+            
+            # Get education status from session state
+            education_list = st.session_state.get('education_list', [])
+            if education_list and isinstance(education_list, list):
+                education_status = education_list[0].get('status', 'Completed')
+            else:
+                education_status = 'Completed'
         
         # Validate required fields
         if not job_title:
@@ -188,7 +204,8 @@ def handle_cover_letter_generation_pre_render():
                 job_description=job_description,
                 skills=skills,
                 summary=summary,
-                additional_notes=additional_notes
+                additional_notes=additional_notes,
+                education_status=education_status
             )
         
         if result['success']:
